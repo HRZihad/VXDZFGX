@@ -5,9 +5,10 @@ module.exports = {
       extend: {
         screens: {
           'sm': '500px',
-          'md': '1440px',
-          'lg': '1200px',
-          'xl': '1600px',
+          'md': '768px',
+          'lg': '1024px',
+          'xl': '1200px',
+          'xxl': '1440px',
         },
       },
     },

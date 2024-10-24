@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -10,6 +11,11 @@ const Loader = React.lazy(() => import("components/loader/Loader"));
 const NotFound = React.lazy(() => import("pages/NotFound"));
 const AuthLayout = React.lazy(() => import("layouts/AuthLayout"));
 const ProtectedLayout = React.lazy(() => import("layouts/ProtectedLayout"));
+const InvoicesSection = React.lazy(() => import("components/Dashboard-1/MainContent/Invoices/InvoicesSection"));
+const CaseSection = React.lazy(() => import("components/Dashboard-1/MainContent/Cases/CaseSection"));
+const TestingSection = React.lazy(() => import("components/Dashboard-1/MainContent/Testing/TestingUi"));
+
+
 
 function App() {
   return (
@@ -29,6 +35,11 @@ function App() {
                   <Route path="/" element={<Dashboard />} />
                   {/* Protected route end here. */}
                 </Route>
+                {/* invoices route  */}
+                <Route path="/invoices" element={<InvoicesSection/>} />
+                {/* cases  */}
+                <Route path="/cases" element={<CaseSection/>} />
+                <Route path="/testing" element={<TestingSection/>} />
                 {/* Other route start here. */}
                 <Route path="/about" element={<About />} />
                 {/* Other route end here. */}

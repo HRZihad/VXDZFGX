@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import DateRangeIcon from '@mui/icons-material/DateRange';
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 import AddIcon from "@mui/icons-material/Add";
 import React, { useState } from "react";
 
@@ -19,29 +19,30 @@ const UnpaidInvoices = ({ data }) => {
   console.log("selected data", selectedData);
 
   return (
-    <Box className=" w-full mt-4">
+    <Box className=" w-full mt-[18px]">
       {/* grid system */}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Box className="flex flex-col gap-3">
+          <Grid item xs={12}  md={5} sx={{paddingLeft: "0px"}}>
+            <Box className="flex flex-col  gap-2">
               {data.map((info) => (
                 <Box
                   key={info.id}
                   onClick={() => handleToggle(info)} // Handle click with toggle function
-                  className="w-full rounded-[35px] px-2 py-2 flex items-center justify-between cursor-pointer"
+                  className="w-full rounded-[35px] px-[6px] py-[6px] flex items-center justify-between cursor-pointer"
                   sx={{
                     bgcolor: active === info.invoice_id ? theme.palette.background.cardBg : theme.palette.primary.cardBg2,
                   }}
                 >
                   {/* avatar and invoice details */}
                   <Box className="flex items-center gap-x-2">
-                    <Avatar alt="Remy Sharp" src={info.imgUrl} sx={{ width: 56, height: 56 }} />
+                    <Avatar alt="Remy Sharp" src={info.imgUrl} sx={{ width: 50, height: 50 }} />
                     {/* invoice id & time */}
                     <Box>
                       <Typography
                         sx={{
                           fontWeight: "600",
+                          fontSize: {xs: "14px", md: "16px"},
                           color: theme.palette.text.white,
                         }}
                       >
@@ -49,7 +50,7 @@ const UnpaidInvoices = ({ data }) => {
                       </Typography>
                       <Typography
                         sx={{
-                          fontSize: "14px",
+                          fontSize: {xs: "12px", md: "14px"},
                           color: theme.palette.primary.semiWhite,
                         }}
                       >
@@ -60,19 +61,20 @@ const UnpaidInvoices = ({ data }) => {
 
                   {/* invoice status */}
                   <Box
-                    className="px-3 py-1 rounded-3xl"
+                    className="py-1 px-4"
                     sx={{
-                      bgcolor: active === info.invoice_id && theme.palette.primary.main,
+                      background: active === info.invoice_id ? theme.palette.primary.main : `repeating-linear-gradient(-55deg, #373737, #373737 7px, #4f4d4d 7px, #4f4d4d 9px)`,
                       border: info.invoice_id !== active && `1px solid ${theme.palette.primary.semiWhite}`,
+                      borderRadius: "20px",
                     }}
                   >
                     <Typography
                       sx={{
-                        fontWeight: "600",
                         color: active === info.invoice_id ? theme.palette.text.black : theme.palette.primary.semiWhite,
+                        fontSize: "14px",
                       }}
                     >
-                      Unsent
+                      {info.invoices_status}
                     </Typography>
                   </Box>
 
@@ -88,7 +90,7 @@ const UnpaidInvoices = ({ data }) => {
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: "20px",
+                        fontSize: {xs: "18px", md: "20px"},
                         color: theme.palette.text.white,
                       }}
                     >
@@ -99,17 +101,17 @@ const UnpaidInvoices = ({ data }) => {
               ))}
             </Box>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12}  md={7}>
             {/* Display selected invoice details */}
-            <Box className="w-full p-6 rounded-3xl " sx={{ bgcolor: theme.palette.background.cardBg }}>
+            <Box className="w-full px-6 py-[20px] rounded-3xl " sx={{ bgcolor: theme.palette.background.cardBg }}>
               <Box className=" flex flex-col gap-y-3">
                 {/* top section  */}
-                <Box className=" grid grid-cols-3 w-full gap-3">
+                <Box className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-4">
                   {/* left  */}
                   <Box className=" flex flex-col gap-y-3">
                     <Typography sx={{ color: theme.palette.primary.semiWhite }}>Invoices details</Typography>
                     <Box className=" flex items-center gap-3">
-                      <Typography sx={{ fontSize: "40px", color: theme.palette.text.white }}>
+                      <Typography sx={{ fontSize: "30px", color: theme.palette.text.white }}>
                         {" "}
                         <span style={{ fontSize: "16px", color: theme.palette.primary.semiWhite }}>#</span> {selectedData.invoice_id}
                       </Typography>
@@ -122,7 +124,7 @@ const UnpaidInvoices = ({ data }) => {
                   <Box className=" flex flex-col gap-y-3">
                     <Typography sx={{ color: theme.palette.primary.semiWhite }}>Company</Typography>
                     <Box className=" flex items-center gap-3">
-                      <Typography sx={{ fontSize: "40px", color: theme.palette.text.white }}> {selectedData.company_name}</Typography>
+                      <Typography sx={{ fontSize: "30px", color: theme.palette.text.white }}> {selectedData.company_name}</Typography>
                       {/* company logo  */}
                       <Box className=" w-10 h-10">
                         <img src={selectedData.company_logo} alt="company-logo" width="100%" height="100%" />
@@ -134,7 +136,7 @@ const UnpaidInvoices = ({ data }) => {
                     <Typography sx={{ color: theme.palette.primary.semiWhite }}>Customer</Typography>
                     <Box className=" flex items-center gap-3">
                       {/* avatar  */}
-                      <Avatar alt="Remy Sharp" src={selectedData.imgUrl} sx={{ width: 56, height: 56 }} />
+                      <Avatar alt="Remy Sharp" src={selectedData.imgUrl} sx={{ width: 50, height: 50 }} />
 
                       {/* name and role */}
                       <Box className=" ">
@@ -149,7 +151,7 @@ const UnpaidInvoices = ({ data }) => {
                   </Box>
                 </Box>
                 {/* mid section  */}
-                <Box className=" grid grid-cols-4 w-full gap-3">
+                <Box className=" grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 w-full gap-3">
                   <Box className=" p-4 rounded-[30px] w-full" sx={{ bgcolor: theme.palette.primary.cardBg3 }}>
                     {/* amount and arrow icon section  */}
                     <Box className=" flex items-center justify-between">
@@ -165,7 +167,7 @@ const UnpaidInvoices = ({ data }) => {
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: "20px",
+                            fontSize: "18px",
                             color: theme.palette.text.white,
                           }}
                         >
@@ -177,7 +179,7 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
 
                     {/* Amount for which section  */}
-                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "30px" }}>Concept Development</Typography>
+                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "10px" }}>Concept Development</Typography>
                   </Box>
                   <Box className=" p-4 rounded-[30px] w-full" sx={{ bgcolor: theme.palette.primary.cardBg3 }}>
                     {/* amount and arrow icon section  */}
@@ -206,7 +208,7 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
 
                     {/* Amount for which section  */}
-                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "30px" }}>CRM Development</Typography>
+                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "10px" }}>CRM Development</Typography>
                   </Box>
                   <Box className=" p-4 rounded-[30px] w-full" sx={{ bgcolor: theme.palette.primary.cardBg3 }}>
                     {/* amount and arrow icon section  */}
@@ -235,21 +237,31 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
 
                     {/* Amount for which section  */}
-                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "30px" }}>CRM Integration</Typography>
+                    <Typography sx={{ color: theme.palette.primary.semiWhite, mt: "6px" }}>CRM Integration</Typography>
                   </Box>
-                  <Box className=" p-4  rounded-[30px] w-full flex items-center justify-center" sx={{ bgcolor: theme.palette.primary.cardBg3 }}>
-                    <IconButton>
-                      <AddIcon />
-                    </IconButton>
+
+                  {/* for add  */}
+                  <Box
+                    sx={{
+                      background: "repeating-linear-gradient(-55deg, #829DB0, #829DB0 5px, #9AB0BE 5px, #9AB0BE 10px)",
+                      // padding: "8px",
+                      borderRadius: "16px",
+                      height: "92px",
+                    }}
+                    className="flex justify-center items-center"
+                  >
+                    <Box className="h-10 w-10 flex rounded-full items-center justify-center cursor-pointer" sx={{ backgroundColor: theme.palette.primary.cardBg3 }}>
+                      <AddIcon sx={{ color: theme.palette.text.white }} />
+                    </Box>
                   </Box>
                 </Box>
                 {/* bottom section  */}
-                <Box className=" p-4  rounded-[30px] w-full flex items-center justify-center" sx={{ bgcolor: theme.palette.primary.cardBg3, mt: "4px" }}>
-                  <Box className="w-full grid grid-cols-4  gap-x-2">
+                <Box className=" p-4  rounded-[30px] w-full flex items-center justify-center" sx={{ bgcolor: theme.palette.primary.cardBg3 }}>
+                  <Box className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4  gap-x-2">
                     {/* sub total  */}
                     <Box>
-                        <Typography sx={{color: theme.palette.primary.semiWhite}}>Sub Total</Typography>
-                           {/* amount section  */}
+                      <Typography sx={{ color: theme.palette.primary.semiWhite }}>Sub Total</Typography>
+                      {/* amount section  */}
                       <Box className="mr-6 flex items-center gap-x-1">
                         <Typography
                           sx={{
@@ -271,8 +283,8 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
                     {/* total  */}
                     <Box>
-                        <Typography sx={{color: theme.palette.primary.semiWhite}}>Total</Typography>
-                           {/* amount section  */}
+                      <Typography sx={{ color: theme.palette.primary.semiWhite }}>Total</Typography>
+                      {/* amount section  */}
                       <Box className="mr-6 flex items-center gap-x-1">
                         <Typography
                           sx={{
@@ -294,8 +306,8 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
                     {/* balance due  */}
                     <Box>
-                        <Typography sx={{color: theme.palette.primary.semiWhite}}>Balance Due </Typography>
-                           {/* amount section  */}
+                      <Typography sx={{ color: theme.palette.primary.semiWhite }}>Balance Due </Typography>
+                      {/* amount section  */}
                       <Box className="mr-6 flex items-center gap-x-1">
                         <Typography
                           sx={{
@@ -317,27 +329,27 @@ const UnpaidInvoices = ({ data }) => {
                     </Box>
 
                     {/* payout now button and icon section  */}
-                    <Box className=" flex items-center justify-end gap-x-2">
-                    <IconButton
-                      sx={{
-                        border: `1px solid ${theme.palette.primary.semiWhite}`,
-                        borderRadius: "100%",
-                      }}
-                    >
-                      <DriveFileRenameOutlineIcon sx={{ color: theme.palette.primary.semiWhite }} />
-                    </IconButton>
-                    <IconButton
-                      sx={{
-                        border: `1px solid ${theme.palette.primary.semiWhite}`,
-                        borderRadius: "100%",
-                      }}
-                    >
-                      <DateRangeIcon sx={{ color: theme.palette.primary.semiWhite }} />
-                    </IconButton>
-                    {/* pay out now section  */}
-                    <Box className=" flex items-center justify-center px-3 py-3 rounded-3xl cursor-pointer" sx={{bgcolor: theme.palette.primary.active}}>
-                        <Typography sx={{fontWeight: "600"}}>Pay out now</Typography>
-                    </Box>
+                    <Box className="col-span-2 2xl:col-span-1 mt-2 2xl:mt-0  flex items-center 2xl:justify-end gap-x-2">
+                      <IconButton
+                        sx={{
+                          border: `1px solid ${theme.palette.primary.semiWhite}`,
+                          borderRadius: "100%",
+                        }}
+                      >
+                        <DriveFileRenameOutlineIcon sx={{ color: theme.palette.primary.semiWhite }} />
+                      </IconButton>
+                      <IconButton
+                        sx={{
+                          border: `1px solid ${theme.palette.primary.semiWhite}`,
+                          borderRadius: "100%",
+                        }}
+                      >
+                        <DateRangeIcon sx={{ color: theme.palette.primary.semiWhite }} />
+                      </IconButton>
+                      {/* pay out now section  */}
+                      <Box className="flex items-center justify-center px-3 py-3 rounded-3xl cursor-pointer" sx={{ bgcolor: theme.palette.primary.active }}>
+                        <Typography sx={{ fontWeight: "600",  }}>Pay out now</Typography>
+                      </Box>
                     </Box>
                   </Box>
                 </Box>

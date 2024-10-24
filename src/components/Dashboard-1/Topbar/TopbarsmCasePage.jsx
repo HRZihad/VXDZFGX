@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import PaymentIcon from "@mui/icons-material/Payment";
+
 import CasesIcon from "@mui/icons-material/Cases";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import CreditScoreIcon from "@mui/icons-material/CreditScore";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SettingsIcon from "@mui/icons-material/Settings";
+import StarsIcon from "@mui/icons-material//Stars";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
+import WorkspacesIcon from "@mui/icons-material/Workspaces";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { Avatar, useTheme } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../../../assets/images/logo/logo.png"
+import logo from "../../../assets/images/logo/logo.png";
 
-const TopbarSm = () => {
+const TopbarsmCasePage = () => {
   const theme = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,17 +34,37 @@ const TopbarSm = () => {
     setOpen(newOpen);
   };
   const icons = [
-    <CasesIcon />,
+    <WorkspacesIcon />,
+    <StarsIcon />,
     <ReceiptIcon />,
-    <CreditScoreIcon />,
-    <PaymentIcon />,
+    <CalendarMonthIcon />,
+    <CasesIcon />,
+    <OutlinedFlagIcon />,
+    <FormatQuoteIcon />,
   ];
   const icons2 = [
-    <NotificationsActiveIcon/>,
+    <NotificationsActiveIcon />,
     <SettingsIcon />,
-    <Avatar alt="Remy Sharp" src="https://i.ibb.co/YcXc5Cg/1.png" sx={{ width: 28, height: 28 }} />
+    <Avatar
+      alt="Remy Sharp"
+      src="https://i.ibb.co/YcXc5Cg/1.png"
+      sx={{ width: 28, height: 28 }}
+    />,
   ];
-  const tabs = ["Cases", "Invoices", "Checkouts", "Payments"];
+  // Memoize the tabs array
+  const tabs = useMemo(
+    () => [
+      "Relationship",
+      "Opportunities",
+      "Leads",
+      "Calender",
+      "Cases",
+      "Reports",
+      "Quotes",
+    ],
+    []
+  );
+
   const handleNavigate = (tab) => {
     setActiveTab(tab); // Update the tab state
     navigate(`/${tab.toLowerCase().replace(/\s+/g, "-")}`); // Navigate to the correct route
@@ -97,12 +122,10 @@ const TopbarSm = () => {
 
       <Divider />
       <List>
-        {['Notifications', 'Settings', 'Profile'].map((text, index) => (
+        {["Notifications", "Settings", "Profile"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {icons2[index]}
-              </ListItemIcon>
+              <ListItemIcon>{icons2[index]}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
@@ -125,4 +148,4 @@ const TopbarSm = () => {
   );
 };
 
-export default TopbarSm;
+export default TopbarsmCasePage;
